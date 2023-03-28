@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Deploy web app
+    name: Deploy web app on node ${{ matrix.node-version }}
     environment:
       name: github-pages
     runs-on: ubuntu-latest
