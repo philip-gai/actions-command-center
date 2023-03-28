@@ -12,7 +12,8 @@
 				"GitHub.copilot",
 				"github.vscode-github-actions",
 				"GitHub.vscode-pull-request-github",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"Angular.ng-template"
 			]
 		}
 	},
