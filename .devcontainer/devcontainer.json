@@ -13,8 +13,7 @@
 				"github.vscode-github-actions",
 				"GitHub.vscode-pull-request-github",
 				"redhat.vscode-yaml",
-				"Angular.ng-template",
-				"ms-azuretools.vscode-docker"
+				"Angular.ng-template"
 			]
 		}
 	},
