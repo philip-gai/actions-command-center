@@ -6,7 +6,8 @@ on:
     paths: ["web/**"]
   workflow_dispatch: {}
 
-permissions: write-all
+permissions:
+  contents: write
 
 concurrency:
   group: "pages"
