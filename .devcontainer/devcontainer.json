@@ -26,6 +26,11 @@
 		"ghcr.io/devcontainers-contrib/features/angular-cli:2": {
 			"version": "15"
 		}
+	},
+	"portsAttributes": {
+		"4200": {
+			"label": "web"
+		}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
