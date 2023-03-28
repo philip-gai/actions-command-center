@@ -43,5 +43,7 @@ jobs:
         run: npm run build
         working-directory: ./web
       - name: Deploy
-        run: npm run deploy:nobuild
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run deploy -- --no-build
         working-directory: ./web
