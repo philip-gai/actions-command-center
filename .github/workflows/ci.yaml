@@ -1,0 +1,41 @@
+name: CI web app
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["web/**"]
+  pull_request:
+    branches: ["main"]
+    paths: ["web/**"]
+  workflow_dispatch: {}
+
+env:
+  node-version: 18.x
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cache node modules
+        uses: actions/cache@v2.1.8
+        with:
+          path: ./web/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Setup Node ${{ env.node-version }}
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: ${{ env.node-version }}
+      - name: Install
+        run: npm ci
+        working-directory: ./web
+      - name: Lint
+        run: npm run lint
+        working-directory: ./web
+      - name: Build
+        run: npm run deploy -- --dry-run
+        working-directory: ./web
