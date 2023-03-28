@@ -96,6 +96,8 @@
           "builder": "angular-cli-ghpages:deploy",
           "options": {
             "baseHref": "/actions-command-center/",
+            "name": "Philip Gai",
+            "email": "philipmgai@gmail.com",
             "branch": "gh-pages",
             "noSilent": true
           }
