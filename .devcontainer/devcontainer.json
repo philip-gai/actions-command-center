@@ -30,6 +30,9 @@
 	"portsAttributes": {
 		"4200": {
 			"label": "web"
+		},
+		"9876": {
+			"label": "web test"
 		}
 	},
 	"hostRequirements": {
