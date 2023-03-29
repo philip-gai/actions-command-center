@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GithubService } from '../github.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,10 +7,9 @@ import { GithubService } from '../github.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor(private _githubService: GithubService) {
-  }
+  constructor(private _userService: UserService) {}
 
-  public async UserIsLoggedIn(): Promise<boolean> {
-    return await this._githubService.UserIsLoggedIn();
+  async userIsValid(): Promise<boolean> {
+    return this._userService.IsValid();
   }
 }

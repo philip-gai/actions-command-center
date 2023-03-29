@@ -14,7 +14,7 @@ export class UserService {
   }
   public set Username(value: string | null | undefined) {
     this._Username = value;
-    localStorage.setItem(this.usernameKey, value ?? '');
+    value ? localStorage.setItem(this.usernameKey, value) : localStorage.removeItem(this.usernameKey);
   }
 
   private _Token?: string | null | undefined;
@@ -23,9 +23,12 @@ export class UserService {
   }
   public set Token(value: string | null | undefined) {
     this._Token = value;
-    if (!value) return;
-    localStorage.setItem(this.tokenKey, value ?? '');
-    this._githubService.UpdateOctokit(value ?? '');
+    if (value) {
+      localStorage.setItem(this.tokenKey, value)
+      this._githubService.UpdateOctokit(value);
+    } else {
+      localStorage.removeItem(this.tokenKey)
+    }
   }
 
   constructor(private _githubService: GithubService) {

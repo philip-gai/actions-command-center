@@ -37,7 +37,8 @@ export class RepoSelectorComponent implements AfterViewInit {
   }
 
   onOwnerFilterChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
+    // TODO: Filter by owner
+    console.log(event);
   }
 }
 
