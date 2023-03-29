@@ -7,9 +7,9 @@ import { UserService } from '../user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor(private _userService: UserService) {}
+  constructor(private _userService: UserService) { }
 
-  async userIsValid(): Promise<boolean> {
+  userIsValid(): boolean {
     return this._userService.IsValid();
   }
 }
