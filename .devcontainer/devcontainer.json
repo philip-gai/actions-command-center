@@ -13,7 +13,8 @@
 				"github.vscode-github-actions",
 				"GitHub.vscode-pull-request-github",
 				"redhat.vscode-yaml",
-				"Angular.ng-template"
+				"Angular.ng-template",
+				"foxundermoon.shell-format"
 			]
 		}
 	},
@@ -31,10 +32,11 @@
 			"label": "web"
 		}
 	},
-	"runArgs": [
-		"--network=bridge",
-		"--memory=8gb"
-	]
+	"hostRequirements": {
+		"cpus": 8,
+		"memory": "8gb",
+		"storage": "32gb"
+	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
