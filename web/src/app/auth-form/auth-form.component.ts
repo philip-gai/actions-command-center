@@ -26,7 +26,6 @@ export class AuthFormComponent {
     }
     this._userService.Username = this.authForm.value.username?.replace('@', '').trim();
     this._userService.Token = this.authForm.value.token?.trim();
-    console.log(this._userService.Username);
   }
 
   missingUserInfo(): boolean {
