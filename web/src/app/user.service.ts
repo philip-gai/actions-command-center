@@ -40,4 +40,8 @@ export class UserService {
     localStorage.removeItem(this.tokenKey);
     this._githubService.ClearOctokit();
   }
+
+  public IsValid(): boolean {
+    return !(!this.Username || !this.Token)
+  }
 }

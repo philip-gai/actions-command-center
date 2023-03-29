@@ -13,12 +13,17 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthFormComponent } from './auth-form/auth-form.component';
+import { RepoSelectorComponent } from './repo-selector/repo-selector.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    AuthFormComponent
+    AuthFormComponent,
+    RepoSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,9 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
     MatRadioModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

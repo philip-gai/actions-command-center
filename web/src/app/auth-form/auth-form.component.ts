@@ -29,8 +29,7 @@ export class AuthFormComponent {
   }
 
   missingUserInfo(): boolean {
-    const isMissingUserInfo = !this._userService.Username || !this._userService.Token;
-    return isMissingUserInfo;
+    return !this._userService.IsValid();
   }
 
   onLogout(): void {

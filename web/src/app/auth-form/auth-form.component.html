@@ -8,6 +8,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="full-width">
+              <mat-label>Username</mat-label>
               <input matInput placeholder="@username" formControlName="username">
               <mat-error *ngIf="authForm.controls['username'].hasError('required')">
                 @username is <strong>required</strong>
@@ -16,6 +17,7 @@
           </div>
           <div class="col">
             <mat-form-field class="full-width">
+              <mat-label>Token</mat-label>
               <input matInput placeholder="Personal Access Token (PAT)" formControlName="token" type="password">
               <mat-hint align="start"><a href="https://github.com/settings/personal-access-tokens/new">Generate a PAT
                   token with <em>actions:read</em> access on all repositories</a></mat-hint>
