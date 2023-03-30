@@ -35,11 +35,12 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <ng-template #loading>
-      <mat-spinner></mat-spinner>
-    </ng-template>
-
     <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="25" aria-label="Select page">
     </mat-paginator>
   </mat-expansion-panel>
 </mat-accordion>
+
+<!-- Templates -->
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
