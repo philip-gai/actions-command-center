@@ -16,7 +16,7 @@ export class GithubService {
 
   public ClearOctokit(): void {
     this.octokit = undefined;
-    console.log("Logged out");
+    console.log("Octokit destroyed");
   }
 
   public ListReposForAuthenticatedUser(options: { page: number, per_page: number, affiliation: string }) {

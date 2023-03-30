@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { GithubService } from './github.service';
 import { isEmpty } from 'lodash';
 
@@ -29,8 +29,11 @@ export class UserService {
       localStorage.setItem(this.tokenKey, value)
       this._githubService.UpdateOctokit(value);
       this._githubService.getAuthenticatedUser().pipe(
-        tap((response) => {
-          this.Username = response.data.login;
+        map((response) => response.data.login),
+        tap((username) => this.Username = username),
+        catchError(() => {
+          this.ClearUser();
+          return of();
         })
       ).subscribe();
     } else {
