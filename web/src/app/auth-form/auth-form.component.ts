@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
 
 @Component({
@@ -28,8 +29,8 @@ export class AuthFormComponent {
     this._userService.Token = this.authForm.value.token?.trim();
   }
 
-  missingUserInfo(): boolean {
-    return !this._userService.IsValid();
+  public get isUserComplete$(): Observable<boolean> {
+    return this._userService.IsUserComplete();
   }
 
   onLogout(): void {

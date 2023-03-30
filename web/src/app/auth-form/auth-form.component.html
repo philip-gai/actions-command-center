@@ -3,7 +3,7 @@
     <mat-card-header>
       <mat-card-title>GitHub Profile</mat-card-title>
     </mat-card-header>
-    <div *ngIf="missingUserInfo(); else showUserInfo">
+    <div *ngIf="(isUserComplete$ | async) === false; else showUserInfo">
       <mat-card-content>
         <div class="row">
           <div class="col">

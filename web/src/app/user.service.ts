@@ -45,7 +45,7 @@ export class UserService {
     this._githubService.ClearOctokit();
   }
 
-  public IsValid(): Observable<boolean> {
+  public IsUserComplete(): Observable<boolean> {
     return of(!(!this.Username || !this.Token))
   }
 }

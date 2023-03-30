@@ -10,7 +10,7 @@ import { UserService } from '../user.service';
 export class DashboardComponent {
   constructor(private _userService: UserService) { }
 
-  public get userIsValid$(): Observable<boolean> {
-    return this._userService.IsValid();
+  public get isUserComplete$(): Observable<boolean> {
+    return this._userService.IsUserComplete();
   }
 }
