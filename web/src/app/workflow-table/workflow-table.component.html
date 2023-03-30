@@ -1,1 +1,38 @@
-<p>workflow-table works!</p>
+<ng-container *ngIf="workflowRuns">
+  <table mat-table class="full-width-table mat-elevation-z8" matSort aria-label="Workflow runs"
+    [dataSource]="workflowRuns.workflow_runs">
+    <ng-container matColumnDef="workflow">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Workflow</th>
+      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="repo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Repository</th>
+      <td mat-cell *matCellDef="let row">
+        {{row.repository.full_name}}
+        <button mat-mini-fab color="primary" aria-label="Remove repository button"
+          (click)="removeRepo(row.repository.full_name)">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row; let i = dataIndex">
+        <button mat-mini-fab color="warn" aria-label="Deny button">
+          <mat-icon>block</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" aria-label="Approve button">
+          <mat-icon>check</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="workflowRuns.total_count" [pageIndex]="0" [pageSize]="25"
+    aria-label="Select page">
+  </mat-paginator>
+</ng-container>

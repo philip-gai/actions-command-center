@@ -47,7 +47,7 @@ export class GithubService {
     return from(this.octokit.rest.users.getAuthenticated())
   }
 
-  public listActionableWorkflowRuns(options: { repoFullName: string }) {
+  public listWaitingWorkflowRuns(options: { repoFullName: string }) {
     const [owner, repo] = options.repoFullName.split("/");
     if (!this.octokit) {
       throw new Error("Octokit is not initialized");
