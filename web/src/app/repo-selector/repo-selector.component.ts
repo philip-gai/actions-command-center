@@ -37,6 +37,8 @@ export class RepoSelectorComponent implements AfterViewInit {
   onRepoSelected(repo: string, index: number) {
     this._repoService.addRepo(repo);
     this._snackBar.open(`Added ${repo}`, "Dismiss", { duration: 3000 })
+    // TODO: Remove from table
+    console.debug(`Selected repo ${repo} at index ${index}`);
   }
 
   private getInitialData() {
