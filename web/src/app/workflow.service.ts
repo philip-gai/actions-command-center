@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { GithubService } from './github.service';
 import { RepoService } from './repo.service';
-import { WorkflowRun } from './workflowrun';
+import { WorkflowRun } from './workflow-run';
 
 @Injectable({
   providedIn: 'root'

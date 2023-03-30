@@ -2,6 +2,7 @@ import { Actor } from "./actor";
 import { Repository } from "./repository";
 
 export interface WorkflowRun {
+  id: number;
   name?: string | null;
   html_url: string;
   triggering_actor?: Actor
