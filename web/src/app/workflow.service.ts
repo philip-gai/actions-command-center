@@ -41,7 +41,6 @@ export class WorkflowService {
   }
 
   reviewPendingDeploymentForRun(workflowRun: WorkflowRun, environment_ids: number[], state: 'approved' | 'rejected', comment: string) {
-    console.log(environment_ids)
     return this._githubService.reviewPendingDeploymentForRun({ repoFullName: workflowRun.repository.full_name, run_id: workflowRun.id, environment_ids, comment, state }).pipe(
       map(responses => responses.data)
     )

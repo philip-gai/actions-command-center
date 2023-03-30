@@ -39,10 +39,8 @@ export class DeploymentReviewDialogComponent implements OnInit {
       map((deployments) => deployments.filter((deployment) => deployment.current_user_can_approve)),
       tap((deployments) => {
         this.loadedDeployments = true
-        console.log(deployments);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         this.environmentIds = deployments.map((deployment) => deployment.environment.id!);
-        console.log(this.environmentIds);
       })
     );
   }
