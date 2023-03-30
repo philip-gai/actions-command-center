@@ -16,7 +16,7 @@
   </mat-card-content>
   <mat-card-footer *ngIf="reposWithNoWaitingWorkflows.length > 0">
     <mat-card-content>
-      <p><b>Repositories with no waiting workflows:</b> {{ reposWithNoWaitingWorkflows.join(", ") }}</p>
+      <p><b>Repositories with no pending approvals:</b> {{ reposWithNoWaitingWorkflows.join(", ") }}</p>
     </mat-card-content>
   </mat-card-footer>
 </mat-card>
@@ -27,5 +27,5 @@
 </ng-template>
 
 <ng-template #noRuns>
-  <p>No waiting workflow runs found.</p>
+  <p>No pending workflow approvals found.</p>
 </ng-template>

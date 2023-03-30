@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { delay } from 'rxjs';
 import { DeploymentReviewDialogData } from '../deployment-review-dialog-data';
 import { DeploymentReviewDialogComponent } from '../deployment-review-dialog/deployment-review-dialog.component';
 import { RepoService } from '../repo.service';
@@ -26,10 +27,14 @@ export class WorkflowTableComponent {
 
   openDialog(data: DeploymentReviewDialogData) {
     const dialogRef = this.dialog.open(DeploymentReviewDialogComponent, { data });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === "approved" || result === "rejected") {
-        this.runReviewed.emit();
-      }
-    });
+    dialogRef.afterClosed().pipe(
+      // Delay so that the workflow can start running before we refresh the table
+      delay(5000)
+    )
+      .subscribe(result => {
+        if (result === "approved" || result === "rejected") {
+          this.runReviewed.emit();
+        }
+      });
   }
 }

@@ -56,15 +56,13 @@ export class DeploymentReviewDialogComponent implements OnInit {
       return;
     }
     const state = this.data.action === "approve" ? "approved" : "rejected";
-    let result = state;
+    this.closeDialog(state);
     this._workflowService.reviewPendingDeploymentForRun(this.data.workflowRun, this.environmentIds, state, this.reviewForm.value.comment).pipe(
-      tap(() => this._snackBar.open(`Deployment ${result}`, "OK", { duration: 2000 })),
+      tap(() => this._snackBar.open(`Deployment ${state}`, "OK", { duration: 2000 })),
       catchError((error) => {
         this._snackBar.open(`Error! ${error.message}`, "OK", { duration: 10000 });
-        result = "error";
         return of(error);
-      }),
-      finalize(() => this.closeDialog(result))
+      })
     ).subscribe();
   }
 }
