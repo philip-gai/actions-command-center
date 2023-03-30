@@ -24,9 +24,11 @@
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element"><button mat-mini-fab color="primary" aria-label="Favorite button">
+        <td mat-cell *matCellDef="let row; let i = dataIndex">
+          <button mat-mini-fab color="primary" aria-label="Favorite button" (click)="onRepoSelected(row.repo, i)">
             <mat-icon>add</mat-icon>
-          </button> </td>
+          </button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

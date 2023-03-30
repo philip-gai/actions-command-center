@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { debounce } from 'lodash';
 import { map, Observable, of } from 'rxjs';
 import { GithubService } from '../github.service';
+import { RepoService } from '../repo.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -21,9 +23,8 @@ export class RepoSelectorComponent implements AfterViewInit {
   data$: Observable<RepoSelectorItem[]> = of();
   totalCount = 0;
   initialSearch: string;
-  panelOpenState = false;
 
-  constructor(private _githubService: GithubService, private _userService: UserService) {
+  constructor(private _githubService: GithubService, private _userService: UserService, private _repoService: RepoService, private _snackBar: MatSnackBar) {
     this.initialSearch = this._userService.Username || "defunkt";
   }
 
@@ -32,6 +33,11 @@ export class RepoSelectorComponent implements AfterViewInit {
   }
 
   onRepositorySearch = debounce(this._onRepositorySearch, 500);
+
+  onRepoSelected(repo: string, index: number) {
+    this._repoService.addRepo(repo);
+    this._snackBar.open(`Added ${repo}`, "Dismiss", { duration: 3000 })
+  }
 
   private getInitialData() {
     this.searchRepos(this.initialSearch)
@@ -46,10 +52,6 @@ export class RepoSelectorComponent implements AfterViewInit {
     else {
       this.searchRepos(newQuery);
     }
-  }
-
-  onSubmit(): void {
-    console.log('submit');
   }
 
   private searchRepos(newQuery: string) {

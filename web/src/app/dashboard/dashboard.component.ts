@@ -10,6 +10,6 @@ export class DashboardComponent {
   constructor(private _userService: UserService) { }
 
   public get isUserComplete(): boolean {
-    return this._userService.IsUserComplete();
+    return this._userService.isUserComplete();
   }
 }

@@ -26,18 +26,18 @@ export class AuthFormComponent {
     }
     this._userService.Token = this.authForm.value.token?.trim();
     setTimeout(() => {
-      if (!this._userService.IsUserComplete()) {
+      if (!this._userService.isUserComplete()) {
         this.authForm.controls['token'].setErrors({ badToken: true });
       }
     }, 200);
   }
 
   public get isUserComplete(): boolean {
-    return this._userService.IsUserComplete();
+    return this._userService.isUserComplete();
   }
 
   onLogout(): void {
-    this._userService.ClearUser();
+    this._userService.logoutUser();
     this.authForm.reset();
   }
 }
