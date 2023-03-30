@@ -1,0 +1,30 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>Workflow Runs</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Repo card -->
+    <mat-card *ngFor="let repo of repos">
+      <ng-container *ngIf="repoWorkflows[repo] | async as workflows">
+        <mat-card-header>
+          <mat-card-title>
+            {{repo}}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{workflows.length}} workflow runs waiting
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <!-- Workflow list -->
+          <mat-selection-list #workflowList>
+            <ng-container *ngIf="workflows.length > 0">
+              <mat-list-option *ngFor="let workflow of workflows; let i = index">
+                {{workflow.name}}
+              </mat-list-option>
+            </ng-container>
+          </mat-selection-list>
+        </mat-card-content>
+      </ng-container>
+    </mat-card>
+  </mat-card-content>
+</mat-card>

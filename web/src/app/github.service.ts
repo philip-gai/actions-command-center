@@ -52,6 +52,6 @@ export class GithubService {
     if (!this.octokit) {
       throw new Error("Octokit is not initialized");
     }
-    return from(this.octokit.rest.actions.listWorkflowRunsForRepo({ owner: owner, repo: repo, status: "action_required", per_page: 100 }));
+    return from(this.octokit.rest.actions.listWorkflowRunsForRepo({ owner: owner, repo: repo, status: "waiting", per_page: 100 }));
   }
 }

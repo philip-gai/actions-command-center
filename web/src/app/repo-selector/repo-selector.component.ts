@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { debounce } from 'lodash';
-import { map, Observable, of } from 'rxjs';
+import { debounce, includes } from 'lodash';
+import { map, Observable, of, tap } from 'rxjs';
 import { GithubService } from '../github.service';
 import { RepoService } from '../repo.service';
 import { UserService } from '../user.service';
@@ -23,6 +23,7 @@ export class RepoSelectorComponent implements AfterViewInit {
   data$: Observable<RepoSelectorItem[]> = of();
   totalCount = 0;
   initialSearch: string;
+  lastQuery?: string;
 
   constructor(private _githubService: GithubService, private _userService: UserService, private _repoService: RepoService, private _snackBar: MatSnackBar) {
     this.initialSearch = this._userService.Username || "defunkt";
@@ -36,13 +37,21 @@ export class RepoSelectorComponent implements AfterViewInit {
 
   onRepoSelected(repo: string, index: number) {
     this._repoService.addRepo(repo);
-    this._snackBar.open(`Added ${repo}`, "Dismiss", { duration: 3000 })
+
     // TODO: Remove from table
     console.debug(`Selected repo ${repo} at index ${index}`);
+
+    // Refresh after changing the data
+    this.searchRepos(this.lastQuery || this.initialSearch).pipe(
+      tap((repos) => {
+        this.data$ = of(repos);
+        this._snackBar.open(`Added ${repo}`, "Dismiss", { duration: 3000 })
+      })
+    ).subscribe();
   }
 
   private getInitialData() {
-    this.searchRepos(this.initialSearch)
+    this.data$ = this.searchRepos(this.initialSearch)
   }
 
   private _onRepositorySearch(event: Event) {
@@ -52,19 +61,22 @@ export class RepoSelectorComponent implements AfterViewInit {
       this.getInitialData();
     }
     else {
-      this.searchRepos(newQuery);
+      this.data$ = this.searchRepos(newQuery);
     }
   }
 
   private searchRepos(newQuery: string) {
-    this.data$ = this._githubService.searchRepos({ repo: newQuery, page: 1, per_page: 25 }).pipe(
+    this.lastQuery = newQuery;
+    return this._githubService.searchRepos({ repo: newQuery, page: 1, per_page: 25 }).pipe(
       map((response) => {
-        this.totalCount = response.data.total_count;
+        this.totalCount = response.data.total_count - this._repoService.repos.length;
         return response.data.items;
       }),
       map((repos) => {
         const data = repos?.map((repo) => {
           return { repo: repo.full_name } as RepoSelectorItem;
+        }).filter((item) => {
+          return !includes(this._repoService.repos, item.repo)
         });
         return data;
       })

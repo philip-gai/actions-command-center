@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RepoService } from '../repo.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -7,9 +8,13 @@ import { UserService } from '../user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService, private _repoService: RepoService) { }
 
   public get isUserComplete(): boolean {
     return this._userService.isUserComplete();
+  }
+
+  public get selectedRepos(): string[] {
+    return this._repoService.repos;
   }
 }

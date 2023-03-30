@@ -21,6 +21,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RepoWorkflowsComponent } from './repo-workflows/repo-workflows.component';
+import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({
@@ -28,7 +31,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppComponent,
     DashboardComponent,
     AuthFormComponent,
-    RepoSelectorComponent
+    RepoSelectorComponent,
+    RepoWorkflowsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatIconModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatListModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
