@@ -27,7 +27,7 @@ export class UserService {
     this._Token = value;
     if (value) {
       localStorage.setItem(this.tokenKey, value)
-      this._githubService.UpdateOctokit(value);
+      this._githubService.updateOctokit(value);
       this._githubService.getAuthenticatedUser().pipe(
         map((response) => response.data.login),
         tap((username) => this.Username = username),
@@ -50,7 +50,7 @@ export class UserService {
   public ClearUser(): void {
     this.Username = null;
     this.Token = null;
-    this._githubService.ClearOctokit();
+    this._githubService.clearOctokit();
   }
 
   public IsUserComplete(): boolean {
