@@ -24,6 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RepoWorkflowsComponent } from './repo-workflows/repo-workflows.component';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     DashboardComponent,
     AuthFormComponent,
     RepoSelectorComponent,
-    RepoWorkflowsComponent
+    RepoWorkflowsComponent,
+    WorkflowTableComponent
   ],
   imports: [
     BrowserModule,

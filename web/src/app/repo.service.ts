@@ -1,4 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { isEmpty } from 'lodash';
 
 @Injectable({
@@ -8,9 +9,8 @@ export class RepoService implements OnDestroy {
   repos: string[] = [];
   repoKey = 'selectedRepos';
 
-  addRepo(repo: string) {
-    this.repos.push(repo);
-    this.saveRepos();
+  constructor(private _snackBar: MatSnackBar) {
+    this.loadRepos();
   }
 
   loadRepos() {
@@ -28,13 +28,25 @@ export class RepoService implements OnDestroy {
     }
   }
 
+  addRepo(repo: string) {
+    this.repos = [...this.repos, repo];
+    this.saveRepos();
+    this._snackBar.open(`Added ${repo}`, "Dismiss", { duration: 3000 })
+  }
+
+  removeRepo(repo: string) {
+    const index = this.repos.indexOf(repo);
+    if (index > -1) {
+      this.repos.splice(index, 1);
+      this.repos = [...this.repos];
+      this.saveRepos();
+      this._snackBar.open(`Removed ${repo}`, "Dismiss", { duration: 3000 })
+    }
+  }
+
   clearRepos() {
     this.repos = [];
     this.saveRepos();
-  }
-
-  constructor() {
-    this.loadRepos();
   }
 
   ngOnDestroy() {

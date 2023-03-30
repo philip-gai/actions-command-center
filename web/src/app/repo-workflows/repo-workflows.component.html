@@ -1,14 +1,25 @@
 <mat-card class="card">
-  <mat-card-header>
-    <mat-card-title>Workflow Runs</mat-card-title>
-  </mat-card-header>
+  <div>
+    <mat-card-header>
+      <mat-card-title>
+        Workflow Runs
+      </mat-card-title>
+      <button mat-mini-fab color="secondary" class="float-right" aria-label="Favorite button"
+        (click)="refreshWorkflows()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-header>
+  </div>
   <mat-card-content>
     <!-- Repo card -->
     <mat-card *ngFor="let repo of repos">
-      <ng-container *ngIf="repoWorkflows[repo] | async as workflows">
+      <ng-container *ngIf="repoWorkflows[repo] | async as workflows; else loading">
         <mat-card-header>
           <mat-card-title>
             {{repo}}
+            <button mat-mini-fab color="secondary" aria-label="Favorite button" (click)="removeRepo(repo)">
+              <mat-icon>remove</mat-icon>
+            </button>
           </mat-card-title>
           <mat-card-subtitle>
             {{workflows.length}} workflow runs waiting
@@ -24,7 +35,14 @@
             </ng-container>
           </mat-selection-list>
         </mat-card-content>
+        <mat-card-actions>
+        </mat-card-actions>
       </ng-container>
     </mat-card>
   </mat-card-content>
 </mat-card>
+
+<!-- Templates -->
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

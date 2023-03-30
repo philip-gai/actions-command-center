@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { debounce, includes } from 'lodash';
@@ -24,19 +23,22 @@ export class RepoSelectorComponent implements AfterViewInit {
   totalCount = 0;
   initialSearch: string;
   lastQuery?: string;
+  @Output() repoSelected = new EventEmitter<null>();
 
-  constructor(private _githubService: GithubService, private _userService: UserService, private _repoService: RepoService, private _snackBar: MatSnackBar) {
+  constructor(private _githubService: GithubService, private _userService: UserService, private _repoService: RepoService) {
     this.initialSearch = this._userService.Username || "defunkt";
   }
 
   ngAfterViewInit(): void {
     this.getInitialData();
+    // TODO - pagination
   }
 
   onRepositorySearch = debounce(this._onRepositorySearch, 500);
 
   onRepoSelected(repo: string, index: number) {
     this._repoService.addRepo(repo);
+    this.repoSelected.emit(null);
 
     // TODO: Remove from table
     console.debug(`Selected repo ${repo} at index ${index}`);
@@ -45,7 +47,6 @@ export class RepoSelectorComponent implements AfterViewInit {
     this.searchRepos(this.lastQuery || this.initialSearch).pipe(
       tap((repos) => {
         this.data$ = of(repos);
-        this._snackBar.open(`Added ${repo}`, "Dismiss", { duration: 3000 })
       })
     ).subscribe();
   }

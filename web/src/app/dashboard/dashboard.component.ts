@@ -8,13 +8,13 @@ import { UserService } from '../user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor(private _userService: UserService, private _repoService: RepoService) { }
+  constructor(private _userService: UserService, public _repoService: RepoService) { }
 
   public get isUserComplete(): boolean {
     return this._userService.isUserComplete();
   }
 
-  public get selectedRepos(): string[] {
+  public get repos(): string[] {
     return this._repoService.repos;
   }
 }
