@@ -9,6 +9,7 @@ import { WorkflowService } from '../workflow.service';
   styleUrls: ['./repo-workflows.component.scss']
 })
 export class RepoWorkflowsComponent implements OnInit {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   repoWorkflows: { [repo: string]: Observable<any> } = {};
 
   public get repos(): string[] {
