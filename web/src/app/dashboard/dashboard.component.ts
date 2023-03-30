@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from '../user.service';
 export class DashboardComponent {
   constructor(private _userService: UserService) { }
 
-  userIsValid(): boolean {
+  public get userIsValid$(): Observable<boolean> {
     return this._userService.IsValid();
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { GithubService } from './github.service';
 
 @Injectable({
@@ -44,7 +45,7 @@ export class UserService {
     this._githubService.ClearOctokit();
   }
 
-  public IsValid(): boolean {
-    return !(!this.Username || !this.Token)
+  public IsValid(): Observable<boolean> {
+    return of(!(!this.Username || !this.Token))
   }
 }
