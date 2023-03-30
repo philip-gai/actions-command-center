@@ -39,6 +39,8 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="secondary" type="reset" (click)="onLogout()">Logout</button>
+    <button mat-button matTooltip="Logout" type="reset" aria-label="Logout button" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+    </button>
   </mat-card-actions>
 </ng-template>

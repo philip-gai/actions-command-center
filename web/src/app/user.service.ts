@@ -3,6 +3,7 @@ import { catchError, map, of, tap } from 'rxjs';
 import { GithubService } from './github.service';
 import { isEmpty } from 'lodash';
 import { RepoService } from './repo.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class UserService {
     }
   }
 
-  constructor(private _githubService: GithubService, private _repoService: RepoService) {
+  constructor(private _githubService: GithubService, private _repoService: RepoService, private _snackBar: MatSnackBar) {
     this.Username = localStorage.getItem(this.usernameKey);
     this.Token = localStorage.getItem(this.tokenKey);
   }
@@ -53,6 +54,7 @@ export class UserService {
     this.Token = null;
     this._githubService.clearOctokit();
     this._repoService.clearRepos();
+    this._snackBar.open(`Logged out`, "Dismiss", { duration: 3000 })
   }
 
   public isUserComplete(): boolean {
