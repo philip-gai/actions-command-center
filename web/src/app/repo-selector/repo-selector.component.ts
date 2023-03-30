@@ -6,6 +6,7 @@ import { debounce, includes } from 'lodash';
 import { map, Observable, of, tap } from 'rxjs';
 import { GithubService } from '../github.service';
 import { RepoService } from '../repo.service';
+import { Repository } from '../repository';
 import { UserService } from '../user.service';
 
 @Component({
@@ -16,10 +17,10 @@ import { UserService } from '../user.service';
 export class RepoSelectorComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<RepoSelectorItem>;
+  @ViewChild(MatTable) table!: MatTable<Repository>;
 
-  displayedColumns = ['repo', 'actions'];
-  data$: Observable<RepoSelectorItem[]> = of();
+  displayedColumns = ['name', 'private', 'stars', 'topics', 'actions'];
+  data$: Observable<Repository[]> = of();
   totalCount = 0;
   initialSearch: string;
   lastQuery?: string;
@@ -72,16 +73,12 @@ export class RepoSelectorComponent implements AfterViewInit {
       }),
       map((repos) => {
         const data = repos?.map((repo) => {
-          return { repo: repo.full_name } as RepoSelectorItem;
+          return repo as Repository;
         }).filter((item) => {
-          return !includes(this._repoService.repos, item.repo)
+          return !includes(this._repoService.repos, item.full_name)
         });
         return data;
       })
     );
   }
-}
-
-interface RepoSelectorItem {
-  repo: string;
 }

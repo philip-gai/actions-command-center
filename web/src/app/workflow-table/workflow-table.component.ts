@@ -16,7 +16,7 @@ export class WorkflowTableComponent {
   @Input() public workflowRuns?: WorkflowRunResponse | null;
   @Output() public runReviewed = new EventEmitter<null>();
 
-  displayedColumns = ["workflow", "repo", "actions"];
+  displayedColumns = ["id", "workflow", "started_at", "repo", "actions"];
   totalCount = 0;
 
   constructor(private _repoService: RepoService, public dialog: MatDialog) { }

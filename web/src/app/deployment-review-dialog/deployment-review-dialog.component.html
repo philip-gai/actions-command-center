@@ -1,7 +1,8 @@
 <form [formGroup]="reviewForm" novalidate (ngSubmit)="onSubmit()">
   <h1 mat-dialog-title>Review deployments</h1>
   <div mat-dialog-content>
-    <p>Are you sure you want to <b>{{ data.action }}</b> the <b>{{ data.workflowRun.name }}</b> workflow run in <b>{{
+    <p>Are you sure you want to <b>{{ data.action }}</b> the <b>{{ data.workflowRun.display_title }}</b> workflow run
+      (<a [href]="data.workflowRun.html_url" target="_blank">{{ data.workflowRun.id }}</a>) in <b>{{
         data.workflowRun.repository.full_name }}</b> for the following environments?</p>
     <ul *ngIf="pendingDeployments$ | async as deployments; else loading">
       <li *ngFor="let deployment of deployments"><b>{{ deployment.environment.name }}</b></li>

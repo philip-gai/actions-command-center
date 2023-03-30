@@ -6,4 +6,7 @@ export interface Repository {
   owner: Actor;
   html_url: string;
   deployments_url: string;
+  stargazers_count?: number;
+  topics?: string[];
+  private: boolean;
 }

@@ -15,18 +15,33 @@
       </mat-form-field>
     </form>
     <table *ngIf="data$ | async as data; else loading" mat-table class="full-width-table mat-elevation-z8" matSort
-      aria-label="Elements" [dataSource]="data">
-      <!-- Repo column -->
-      <ng-container matColumnDef="repo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Repository</th>
-        <td mat-cell *matCellDef="let row">{{row.repo}}</td>
+      aria-label="Repositories" [dataSource]="data">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row"><a [href]="row.html_url" target="_blank">{{row.full_name}}</a></td>
+      </ng-container>
+
+      <ng-container matColumnDef="private">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Private</th>
+        <td mat-cell *matCellDef="let row"><mat-icon *ngIf="row.private">check</mat-icon></td>
+      </ng-container>
+
+      <ng-container matColumnDef="stars">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Stars</th>
+        <td mat-cell *matCellDef="let row">{{row.stargazers_count}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="topics">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Topics</th>
+        <td mat-cell *matCellDef="let row">{{row.topics?.join(', ')}}</td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let row">
           <button mat-button color="primary" matTooltip="Follow repository" aria-label="Follow repository button"
-            (click)="onRepoSelected(row.repo)">
+            (click)="onRepoSelected(row.full_name)">
             <mat-icon>add</mat-icon>
           </button>
         </td>
