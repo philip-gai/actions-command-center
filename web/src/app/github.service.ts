@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Octokit } from 'octokit';
-import { from, tap } from 'rxjs';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,10 @@ export class GithubService {
 
   public async updateOctokit(token: string): Promise<void> {
     this.octokit = new Octokit({ auth: token });
-    console.log("Octokit initialized");
   }
 
   public clearOctokit(): void {
     this.octokit = undefined;
-    console.log("Octokit destroyed");
   }
 
   public listReposForAuthenticatedUser(options: { page: number, per_page: number, affiliation: string }) {
@@ -35,9 +33,7 @@ export class GithubService {
     if (!this.octokit) {
       throw new Error("Octokit is not initialized");
     }
-    return from(this.octokit.rest.search.repos(params)).pipe(
-      tap((response) => console.debug(response))
-    );
+    return from(this.octokit.rest.search.repos(params));
   }
 
   public getAuthenticatedUser() {
@@ -52,6 +48,25 @@ export class GithubService {
     if (!this.octokit) {
       throw new Error("Octokit is not initialized");
     }
-    return from(this.octokit.rest.actions.listWorkflowRunsForRepo({ owner: owner, repo: repo, status: "waiting", per_page: 100 }));
+    // Do not cache this request
+    const headers = { 'If-None-Match': '' };
+    return from(this.octokit.rest.actions.listWorkflowRunsForRepo({ owner: owner, repo: repo, status: "waiting", per_page: 100, headers }));
+  }
+
+  public getPendingDeploymentsForRun(options: { repoFullName: string, run_id: number }) {
+    const [owner, repo] = options.repoFullName.split("/");
+    if (!this.octokit) {
+      throw new Error("Octokit is not initialized");
+    }
+    return from(this.octokit.rest.actions.getPendingDeploymentsForRun({ owner: owner, repo: repo, run_id: options.run_id }));
+  }
+
+  public reviewPendingDeploymentForRun(options: { repoFullName: string, run_id: number, environment_ids: number[], state: 'approved' | 'rejected', comment: string }) {
+    const [owner, repo] = options.repoFullName.split("/");
+    if (!this.octokit) {
+      throw new Error("Octokit is not initialized");
+    }
+    const finalOptions = { owner: owner, repo: repo, run_id: options.run_id, environment_ids: options.environment_ids, state: options.state, comment: options.comment };
+    return from(this.octokit.rest.actions.reviewPendingDeploymentsForRun(finalOptions));
   }
 }

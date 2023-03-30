@@ -24,9 +24,9 @@
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let row; let i = dataIndex">
+        <td mat-cell *matCellDef="let row">
           <button mat-button color="primary" matTooltip="Follow repository" aria-label="Follow repository button"
-            (click)="onRepoSelected(row.repo, i)">
+            (click)="onRepoSelected(row.repo)">
             <mat-icon>add</mat-icon>
           </button>
         </td>

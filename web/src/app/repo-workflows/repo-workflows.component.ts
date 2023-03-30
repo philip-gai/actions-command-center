@@ -28,9 +28,11 @@ export class RepoWorkflowsComponent implements OnInit, OnChanges {
     this.loadWorkflowRuns();
   }
 
-  refreshWorkflows() {
+  refreshWorkflows(showSnackBar = true) {
     this.loadWorkflowRuns();
-    this._snackBar.open("Refreshed workflows", "OK", { duration: 2000 });
+    if (showSnackBar) {
+      this._snackBar.open("Refreshed workflows", "OK", { duration: 2000 });
+    }
   }
 
   private loadWorkflowRuns() {

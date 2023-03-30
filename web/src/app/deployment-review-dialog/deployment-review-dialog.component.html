@@ -1,0 +1,26 @@
+<form [formGroup]="reviewForm" novalidate (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>Review deployments</h1>
+  <div mat-dialog-content>
+    <p>Are you sure you want to <b>{{ data.action }}</b> the <b>{{ data.workflowRun.name }}</b> workflow run in <b>{{
+        data.workflowRun.repository.full_name }}</b> for the following environments?</p>
+    <ul *ngIf="pendingDeployments$ | async as deployments; else loading">
+      <li *ngFor="let deployment of deployments"><b>{{ deployment.environment.name }}</b></li>
+    </ul>
+    <mat-form-field>
+      <mat-label>Leave a comment</mat-label>
+      <textarea matInput formControlName="comment" placeholder="LGTM! 🚀"></textarea>
+      <mat-error *ngIf="reviewForm.controls['comment'].hasError('required')">
+        A review comment is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button color="secondary" (click)="closeDialog('cancelled')" type="button">Cancel</button>
+    <button mat-button color="primary" type="submit" [disabled]="!loadedDeployments">{{ primaryActionLabel }}</button>
+  </div>
+</form>
+
+<!-- Templates -->
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

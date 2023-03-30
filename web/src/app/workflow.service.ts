@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
+import { Deployment } from './deployment';
 import { GithubService } from './github.service';
-import { RepoService } from './repo.service';
 import { WorkflowRun } from './workflow-run';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { WorkflowRun } from './workflow-run';
 })
 export class WorkflowService {
 
-  constructor(private _repoService: RepoService, private _githubService: GithubService) { }
+  constructor(private _githubService: GithubService) { }
 
   listWaitingWorkflowRuns(repo: string) {
     return this._githubService.listWaitingWorkflowRuns({ repoFullName: repo });
@@ -31,6 +31,19 @@ export class WorkflowService {
         });
         return combinedResult;
       })
+    )
+  }
+
+  getPendingDeploymentsForRun(workflowRun: WorkflowRun): Observable<Deployment[]> {
+    return this._githubService.getPendingDeploymentsForRun({ repoFullName: workflowRun.repository.full_name, run_id: workflowRun.id }).pipe(
+      map(responses => responses.data)
+    )
+  }
+
+  reviewPendingDeploymentForRun(workflowRun: WorkflowRun, environment_ids: number[], state: 'approved' | 'rejected', comment: string) {
+    console.log(environment_ids)
+    return this._githubService.reviewPendingDeploymentForRun({ repoFullName: workflowRun.repository.full_name, run_id: workflowRun.id, environment_ids, comment, state }).pipe(
+      map(responses => responses.data)
     )
   }
 }

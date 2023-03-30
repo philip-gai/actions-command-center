@@ -11,7 +11,7 @@
               <mat-label>Token</mat-label>
               <input matInput placeholder="Personal Access Token (PAT)" formControlName="token" type="password">
               <mat-hint align="start"><a href="https://github.com/settings/personal-access-tokens/new">Generate a PAT
-                  token with <em>actions:read</em> access on all repositories</a></mat-hint>
+                  token with <em>actions:read,deployments:read</em> access on all repositories</a></mat-hint>
               <mat-error *ngIf="authForm.controls['token'].hasError('required')">
                 Token is <strong>required</strong>
               </mat-error>

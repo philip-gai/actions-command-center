@@ -11,8 +11,8 @@
     </mat-card-header>
   </div>
   <mat-card-content *ngIf="repoWorkflowsRuns$ | async as workflowRuns">
-    <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRuns"
-      [workflowRuns]="workflowRuns"></app-workflow-table>
+    <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRuns" [workflowRuns]="workflowRuns"
+      (runReviewed)="refreshWorkflows(false)"></app-workflow-table>
   </mat-card-content>
   <mat-card-footer *ngIf="reposWithNoWaitingWorkflows.length > 0">
     <mat-card-content>

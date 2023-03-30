@@ -10,6 +10,7 @@ import { WorkflowTableComponent } from './workflow-table/workflow-table.componen
 import { RepoWorkflowsComponent } from './repo-workflows/repo-workflows.component';
 import { RepoSelectorComponent } from './repo-selector/repo-selector.component';
 import { AuthFormComponent } from './auth-form/auth-form.component';
+import { DeploymentReviewDialogComponent } from './deployment-review-dialog/deployment-review-dialog.component';
 
 // Material Imports
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 
@@ -39,7 +42,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AuthFormComponent,
     RepoSelectorComponent,
     RepoWorkflowsComponent,
-    WorkflowTableComponent
+    WorkflowTableComponent,
+    DeploymentReviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     MatListModule,
     MatBadgeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

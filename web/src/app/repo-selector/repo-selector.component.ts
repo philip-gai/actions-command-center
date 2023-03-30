@@ -36,12 +36,9 @@ export class RepoSelectorComponent implements AfterViewInit {
 
   onRepositorySearch = debounce(this._onRepositorySearch, 500);
 
-  onRepoSelected(repo: string, index: number) {
+  onRepoSelected(repo: string) {
     this._repoService.addRepo(repo);
     this.repoSelected.emit(null);
-
-    // TODO: Remove from table
-    console.debug(`Selected repo ${repo} at index ${index}`);
 
     // Refresh after changing the data
     this.searchRepos(this.lastQuery || this.initialSearch).pipe(
