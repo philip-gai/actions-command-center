@@ -23,6 +23,12 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="triggered_by">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Triggered By</th>
+      <td mat-cell *matCellDef="let row"><a [href]="row.triggering_actor.html_url"
+          target="_blank">{{row.triggering_actor.login}}</a></td>
+    </ng-container>
+
     <ng-container matColumnDef="started_at">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Started</th>
       <td mat-cell *matCellDef="let row">{{row.run_started_at}}</td>
