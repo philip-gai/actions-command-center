@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { isEmpty } from 'lodash';
 import { Octokit } from 'octokit';
-import { catchError, from, map, Observable, of } from 'rxjs';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
