@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { GithubService } from '../github.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -10,13 +10,11 @@ import { UserService } from '../user.service';
 })
 export class AuthFormComponent {
   authForm = this.fb.group({
-    username: new FormControl<string | null>(null, Validators.required),
     token: new FormControl<string | null>(null, Validators.required),
   });
 
-  constructor(private fb: FormBuilder, public _userService: UserService) {
+  constructor(private fb: FormBuilder, public _userService: UserService, public _githubService: GithubService) {
     this.authForm.setValue({
-      username: this._userService.Username ?? null,
       token: this._userService.Token ?? null,
     });
   }
@@ -25,11 +23,10 @@ export class AuthFormComponent {
     if (this.authForm.invalid) {
       return;
     }
-    this._userService.Username = this.authForm.value.username?.replace('@', '').trim();
     this._userService.Token = this.authForm.value.token?.trim();
   }
 
-  public get isUserComplete$(): Observable<boolean> {
+  public get isUserComplete(): boolean {
     return this._userService.IsUserComplete();
   }
 

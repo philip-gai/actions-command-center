@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs';
 import { GithubService } from './github.service';
+import { isEmpty } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,14 @@ export class UserService {
     if (value) {
       localStorage.setItem(this.tokenKey, value)
       this._githubService.UpdateOctokit(value);
+      this._githubService.getAuthenticatedUser().pipe(
+        tap((response) => {
+          this.Username = response.data.login;
+        })
+      ).subscribe();
     } else {
       localStorage.removeItem(this.tokenKey)
+      this.Username = null;
     }
   }
 
@@ -40,12 +47,11 @@ export class UserService {
   public ClearUser(): void {
     this.Username = null;
     this.Token = null;
-    localStorage.removeItem(this.usernameKey);
-    localStorage.removeItem(this.tokenKey);
     this._githubService.ClearOctokit();
   }
 
-  public IsUserComplete(): Observable<boolean> {
-    return of(!(!this.Username || !this.Token))
+  public IsUserComplete(): boolean {
+    const isUserFormComplete = !isEmpty(this.Username) && !isEmpty(this.Token)
+    return isUserFormComplete;
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { isEmpty } from 'lodash';
 import { Octokit } from 'octokit';
-import { from } from 'rxjs';
+import { catchError, from, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +32,10 @@ export class GithubService {
     console.log(repos?.data);
   }
 
-  public async UserIsLoggedIn(): Promise<boolean> {
+  public getAuthenticatedUser() {
     if (!this.octokit) {
-      return false;
+      throw new Error("Octokit is not initialized");
     }
-    const response = await this.octokit.rest.users.getAuthenticated();
-    console.log("Logged in: " + response.data.login);
-    return true;
+    return from(this.octokit.rest.users.getAuthenticated())
   }
 }

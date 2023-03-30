@@ -3,18 +3,9 @@
     <mat-card-header>
       <mat-card-title>GitHub Profile</mat-card-title>
     </mat-card-header>
-    <div *ngIf="(isUserComplete$ | async) === false; else showUserInfo">
+    <div *ngIf="!isUserComplete; else showUserInfo">
       <mat-card-content>
         <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Username</mat-label>
-              <input matInput placeholder="@username" formControlName="username">
-              <mat-error *ngIf="authForm.controls['username'].hasError('required')">
-                @username is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
           <div class="col">
             <mat-form-field class="full-width">
               <mat-label>Token</mat-label>
@@ -36,7 +27,7 @@
       <mat-card-content>
         <div class="row">
           <div class="col">
-            <p>Username: {{ _userService.Username }}</p>
+            <p>@{{ _userService.Username }}</p>
           </div>
         </div>
       </mat-card-content>
