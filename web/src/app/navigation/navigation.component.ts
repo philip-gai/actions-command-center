@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { isEmpty } from 'lodash';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
   title = 'Actions Command Center';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -22,20 +22,29 @@ export class NavigationComponent implements OnInit {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private _userService: UserService, private _router: Router, private _repoService: RepoService) {
+    // If the user is not logged in, redirect to login
     if (!this.isUserLoggedIn) {
       this._router.navigateByUrl('/user/login');
       return
     }
-    if (isEmpty(this.repos)) {
-      this._router.navigateByUrl('/repo/select');
+
+    // User is logged in
+    const routeUrl = this._router.url;
+    if (["/", "/user/login"].includes(routeUrl)) {
+      // If the user is logged in, but has no repos, redirect to repo select
+      if (isEmpty(this.repos)) {
+        this._router.navigateByUrl('/repo/select');
+        return
+      }
+      // If the user is logged in, and has repos, redirect to approvals
+      this._router.navigateByUrl('/workflow/approvals');
       return
     }
-    this._router.navigateByUrl('/workflow/approvals');
-  }
 
-  ngOnInit(): void {
-    if (!this._userService.isUserLoggedIn()) {
-      this._router.navigateByUrl('/user/login');
+    // If the user has not selected a repo, redirect to repo select
+    if(routeUrl === '/workflow/approvals' && isEmpty(this.repos)) {
+      this._router.navigateByUrl('/repo/select');
+      return
     }
   }
 

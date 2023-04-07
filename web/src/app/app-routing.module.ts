@@ -9,46 +9,16 @@ const routes: Routes = [
   {
     path: '', component: NavigationComponent, children: [
       {
-        path: 'repo',
-        component: RepoSelectorComponent,
-        children: [
-          {
-            path: 'select',
-            component: RepoWorkflowsComponent,
-          },
-          {
-            path: '**',
-            redirectTo: '/repo/select'
-          }
-        ]
+        path: 'repo/select',
+        component: RepoSelectorComponent
       },
       {
-        path: 'user',
-        component: AuthFormComponent,
-        children: [
-          {
-            path: 'login',
-            component: AuthFormComponent,
-          },
-          {
-            path: '**',
-            redirectTo: '/user'
-          }
-        ]
+        path: 'user/login',
+        component: AuthFormComponent
       },
       {
-        path: 'workflow',
-        component: RepoWorkflowsComponent,
-        children: [
-          {
-            path: 'approvals',
-            component: RepoWorkflowsComponent,
-          },
-          {
-            path: '**',
-            redirectTo: '/workflow/approvals'
-          }
-        ]
+        path: 'workflow/approvals',
+        component: RepoWorkflowsComponent
       }
     ],
   }
