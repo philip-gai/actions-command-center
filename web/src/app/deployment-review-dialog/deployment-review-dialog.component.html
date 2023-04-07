@@ -9,7 +9,7 @@
     </ul>
     <mat-form-field>
       <mat-label>Leave a comment</mat-label>
-      <textarea matInput formControlName="comment" placeholder="LGTM! 🚀"></textarea>
+      <textarea matInput formControlName="comment"></textarea>
       <mat-error *ngIf="reviewForm.controls['comment'].hasError('required')">
         A review comment is <strong>required</strong>
       </mat-error>
