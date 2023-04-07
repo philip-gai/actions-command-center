@@ -15,7 +15,7 @@ export class RepoWorkflowsComponent {
   reposWithNoWaitingWorkflows: string[] = [];
   repos$: Observable<string[]>;
 
-  constructor(private _workflowService: WorkflowService, private _repoService: RepoService, private _snackBar: MatSnackBar) {
+  constructor(private _workflowService: WorkflowService, private _repoService: RepoService) {
     this.repos$ = this._repoService.repos$.pipe(
       tap((repos) => {
         this.loadWorkflowRuns(repos);
@@ -23,11 +23,8 @@ export class RepoWorkflowsComponent {
     );
   }
 
-  refreshWorkflows(showSnackBar = true) {
+  refreshWorkflows() {
     this.loadWorkflowRuns(this._repoService.repos);
-    if (showSnackBar) {
-      this._snackBar.open("Refreshed workflows", "OK", { duration: 2000 });
-    }
   }
 
   loadWorkflowRuns(repos: string[]) {
