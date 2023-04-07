@@ -1,22 +1,34 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniq } from 'lodash';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RepoService implements OnDestroy {
-  repos: string[] = [];
-  repoKey = 'selectedRepos';
+
+  private _repos: string[] = [];
+  public get repos(): string[] {
+    return this._repos;
+  }
+  private set repos(value: string[]) {
+    this._repos = value;
+    this.repos$ = of(value);
+  }
+
+  public repos$: Observable<string[]> = of([]);
+  private repoKey = 'selectedRepos';
 
   constructor(private _snackBar: MatSnackBar) {
     this.loadRepos();
   }
 
   loadRepos() {
-    const repos = localStorage.getItem(this.repoKey);
-    if (repos && !isEmpty(repos)) {
-      this.repos = JSON.parse(repos);
+    const reposStr = localStorage.getItem(this.repoKey);
+    if (reposStr && !isEmpty(reposStr)) {
+      const repos = JSON.parse(reposStr) as string[];
+      this.repos = repos;
     }
   }
 
@@ -29,7 +41,7 @@ export class RepoService implements OnDestroy {
   }
 
   addRepo(repo: string) {
-    this.repos = [...this.repos, repo];
+    this.repos = uniq([...this.repos, repo]);
     this.saveRepos();
     this._snackBar.open(`Added ${repo}`, "Dismiss", { duration: 3000 })
   }

@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // My Components
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
 import { RepoWorkflowsComponent } from './repo-workflows/repo-workflows.component';
 import { RepoSelectorComponent } from './repo-selector/repo-selector.component';
@@ -31,6 +30,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NavigationComponent } from './navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 
@@ -38,12 +41,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     AuthFormComponent,
     RepoSelectorComponent,
     RepoWorkflowsComponent,
     WorkflowTableComponent,
-    DeploymentReviewDialogComponent
+    DeploymentReviewDialogComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatListModule,
     MatBadgeModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

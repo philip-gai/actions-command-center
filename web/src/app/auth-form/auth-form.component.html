@@ -1,46 +1,28 @@
 <form [formGroup]="authForm" novalidate (ngSubmit)="onSubmit()">
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title>GitHub Profile</mat-card-title>
+      <mat-card-title>Login</mat-card-title>
     </mat-card-header>
-    <ng-container *ngIf="!isUserComplete; else showUserInfo">
-      <mat-card-content>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="full-width">
-              <mat-label>Personal Access Token (PAT)</mat-label>
-              <input matInput placeholder="Personal Access Token (PAT)" formControlName="token" type="password">
-              <mat-hint align="start"><a href="https://github.com/settings/personal-access-tokens/new">Generate a PAT
-                  token with <em>actions:read,deployments:read</em> access on all repositories</a></mat-hint>
-              <mat-error *ngIf="authForm.controls['token'].hasError('required')">
-                Token is <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="authForm.controls['token'].hasError('badToken')">
-                The provided token is <strong>invalid</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>GitHub Personal Access Token (PAT)</mat-label>
+            <input matInput formControlName="token" type="password">
+            <mat-hint align="start"><a href="https://github.com/settings/personal-access-tokens/new">Generate a PAT
+                token with <em>actions:read,deployments:read</em> access on all repositories</a></mat-hint>
+            <mat-error *ngIf="authForm.controls['token'].hasError('required')">
+              Token is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="authForm.controls['token'].hasError('badToken')">
+              The provided token is <strong>invalid</strong>
+            </mat-error>
+          </mat-form-field>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-      </mat-card-actions>
-    </ng-container>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-card-actions>
   </mat-card>
 </form>
-
-<!-- Templates -->
-<ng-template #showUserInfo>
-  <mat-card-content>
-    <div class="row">
-      <div class="col">
-        <p>@{{ _userService.Username }}</p>
-      </div>
-    </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button matTooltip="Logout" type="reset" aria-label="Logout button" (click)="onLogout()">
-      <mat-icon>logout</mat-icon>
-    </button>
-  </mat-card-actions>
-</ng-template>

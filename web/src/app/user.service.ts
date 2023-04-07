@@ -13,6 +13,7 @@ export class UserService {
   private readonly tokenKey = 'user.token';
 
   private _Username?: string | null | undefined;
+  initialized = false;
   public get Username(): string | null | undefined {
     return this._Username;
   }
@@ -34,7 +35,7 @@ export class UserService {
         map((response) => response.data.login),
         tap((username) => this.Username = username),
         catchError(() => {
-          this.logoutUser();
+          this.logoutUser(false);
           return of();
         })
       ).subscribe();
@@ -45,20 +46,30 @@ export class UserService {
   }
 
   constructor(private _githubService: GithubService, private _repoService: RepoService, private _snackBar: MatSnackBar) {
-    this.Username = localStorage.getItem(this.usernameKey);
-    this.Token = localStorage.getItem(this.tokenKey);
+    this.init();
   }
 
-  public logoutUser(): void {
+  public init() {
+    if (!this.initialized) {
+      this.initialized = true;
+      this.Username = localStorage.getItem(this.usernameKey);
+      this.Token = localStorage.getItem(this.tokenKey);
+    }
+  }
+
+  public logoutUser(showSnackBar = true): void {
+    const usernameBefore = this.Username;
     this.Username = null;
     this.Token = null;
     this._githubService.clearOctokit();
     this._repoService.clearRepos();
-    this._snackBar.open(`Logged out`, "Dismiss", { duration: 3000 })
+    if (showSnackBar) {
+      this._snackBar.open(`@${usernameBefore} logged out`, "Dismiss", { duration: 3000 })
+    }
   }
 
-  public isUserComplete(): boolean {
-    const isUserFormComplete = !isEmpty(this.Username) && !isEmpty(this.Token)
-    return isUserFormComplete;
+  public isUserLoggedIn(): boolean {
+    const isUserLoggedIn = !isEmpty(this.Username) && !isEmpty(this.Token)
+    return isUserLoggedIn;
   }
 }
