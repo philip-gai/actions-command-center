@@ -9,7 +9,8 @@
           <mat-form-field class="full-width">
             <mat-label>GitHub Personal Access Token (PAT)</mat-label>
             <input matInput formControlName="token" type="password">
-            <mat-hint align="start"><a href="https://github.com/settings/personal-access-tokens/new" target="_blank">Generate a PAT
+            <mat-hint align="start"><a href="https://github.com/settings/personal-access-tokens/new"
+                target="_blank">Generate a PAT
                 token with <em>actions:read,deployments:read</em> access on all repositories</a></mat-hint>
             <mat-error *ngIf="authForm.controls['token'].hasError('required')">
               Token is <strong>required</strong>
