@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { GithubService } from '../github.service';
 import { UserService } from '../user.service';
 
@@ -13,7 +15,7 @@ export class AuthFormComponent {
     token: new FormControl<string | null>(null, [Validators.required]),
   });
 
-  constructor(private fb: FormBuilder, public _userService: UserService, public _githubService: GithubService) {
+  constructor(private fb: FormBuilder, public _userService: UserService, public _githubService: GithubService, private _snackBar: MatSnackBar, private _router: Router) {
     this.authForm.setValue({
       token: this._userService.Token ?? null,
     });
@@ -25,18 +27,12 @@ export class AuthFormComponent {
     }
     this._userService.Token = this.authForm.value.token?.trim();
     setTimeout(() => {
-      if (!this._userService.isUserComplete()) {
+      if (!this._userService.isUserLoggedIn()) {
         this.authForm.controls['token'].setErrors({ badToken: true });
+      } else {
+        this._snackBar.open(`@${this._userService.Username} logged in`, 'Dismiss', { duration: 3000 });
+        this._router.navigateByUrl("/repo/select");
       }
-    }, 200);
-  }
-
-  public get isUserComplete(): boolean {
-    return this._userService.isUserComplete();
-  }
-
-  onLogout(): void {
-    this._userService.logoutUser();
-    this.authForm.reset();
+    }, 500);
   }
 }

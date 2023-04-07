@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel hideToggle>
+  <mat-expansion-panel hideToggle [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Select Repositories
@@ -10,7 +10,7 @@
     </mat-expansion-panel-header>
     <form (submit)="false">
       <mat-form-field>
-        <mat-label>Repository</mat-label>
+        <mat-label>Search Repositories</mat-label>
         <input matInput type="text" [value]="initialSearch" (keyup)="onRepositorySearch($event)">
       </mat-form-field>
     </form>

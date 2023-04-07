@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, tap } from 'rxjs';
 import { RepoService } from '../repo.service';
@@ -10,41 +10,37 @@ import { WorkflowService } from '../workflow.service';
   templateUrl: './repo-workflows.component.html',
   styleUrls: ['./repo-workflows.component.scss']
 })
-export class RepoWorkflowsComponent implements OnInit, OnChanges {
-  @Input() public repos: string[] = [];
+export class RepoWorkflowsComponent {
   repoWorkflowsRuns$: Observable<WorkflowRunResponse> = of();
   reposWithNoWaitingWorkflows: string[] = [];
+  repos$: Observable<string[]>;
 
-  constructor(private _workflowService: WorkflowService, private _repoService: RepoService, private _snackBar: MatSnackBar) { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    const reposChanges = changes["repos"];
-    if (reposChanges && !reposChanges.firstChange) {
-      this.loadWorkflowRuns();
-    }
-  }
-
-  ngOnInit(): void {
-    this.loadWorkflowRuns();
+  constructor(private _workflowService: WorkflowService, private _repoService: RepoService, private _snackBar: MatSnackBar) {
+    this.repos$ = this._repoService.repos$.pipe(
+      tap((repos) => {
+        this.loadWorkflowRuns(repos);
+      })
+    );
   }
 
   refreshWorkflows(showSnackBar = true) {
-    this.loadWorkflowRuns();
+    this.loadWorkflowRuns(this._repoService.repos);
     if (showSnackBar) {
       this._snackBar.open("Refreshed workflows", "OK", { duration: 2000 });
     }
   }
 
-  private loadWorkflowRuns() {
-    this.repoWorkflowsRuns$ = this._workflowService.listWaitingWorkflowRunsForRepos(this.repos)
+  loadWorkflowRuns(repos: string[]) {
+    this.repoWorkflowsRuns$ = this._workflowService.listWaitingWorkflowRunsForRepos(repos)
       .pipe(
         tap((workflowRuns) => {
-          this.reposWithNoWaitingWorkflows = this.repos.filter((repo) => {
+          this.reposWithNoWaitingWorkflows = repos.filter((repo) => {
             return !workflowRuns.workflow_runs.find((workflowRun) => {
               return workflowRun.repository.full_name === repo;
             });
           });
         })
       );
+    return this.repoWorkflowsRuns$;
   }
 }

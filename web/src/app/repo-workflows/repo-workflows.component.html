@@ -2,23 +2,27 @@
   <div>
     <mat-card-header>
       <mat-card-title>
-        Workflow Runs
+        Pending Workflow Approvals
       </mat-card-title>
-      <button mat-button matTooltip="Refresh workflow runs" class="float-right" aria-label="Refresh button"
+      <button mat-button matTooltip="Refresh pending approvals" class="float-right" aria-label="Refresh button"
         (click)="refreshWorkflows()">
         <mat-icon>refresh</mat-icon>
       </button>
     </mat-card-header>
   </div>
-  <mat-card-content *ngIf="repoWorkflowsRuns$ | async as workflowRuns">
-    <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRuns" [workflowRuns]="workflowRuns"
-      (runReviewed)="refreshWorkflows(false)"></app-workflow-table>
-  </mat-card-content>
-  <mat-card-footer *ngIf="reposWithNoWaitingWorkflows.length > 0">
-    <mat-card-content>
-      <p><b>Repositories with no pending approvals:</b> {{ reposWithNoWaitingWorkflows.join(", ") }}</p>
-    </mat-card-content>
-  </mat-card-footer>
+  <ng-container *ngIf="repos$ | async">
+    <ng-container *ngIf="repoWorkflowsRuns$ | async as workflowRuns; else loading">
+      <mat-card-content>
+        <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRuns" [workflowRuns]="workflowRuns"
+          (runReviewed)="refreshWorkflows(false)"></app-workflow-table>
+      </mat-card-content>
+      <mat-card-footer *ngIf="reposWithNoWaitingWorkflows.length > 0">
+        <mat-card-content>
+          <p><b>Repositories with no pending approvals:</b> {{ reposWithNoWaitingWorkflows.join(", ") }}</p>
+        </mat-card-content>
+      </mat-card-footer>
+    </ng-container>
+  </ng-container>
 </mat-card>
 
 <!-- Templates -->
