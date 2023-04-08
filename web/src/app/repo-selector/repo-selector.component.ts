@@ -19,7 +19,6 @@ export class RepoSelectorComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Repository>;
 
-  displayedColumns = ['name', 'private', 'stars', 'topics', 'actions'];
   data$: Observable<Repository[]> = of();
   totalCount = 0;
   initialSearch: string;

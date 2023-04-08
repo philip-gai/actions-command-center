@@ -34,6 +34,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { RepoTableComponent } from './repo-table/repo-table.component';
 import { LoadingComponent } from './loading/loading.component';
 
 
@@ -48,6 +49,7 @@ import { LoadingComponent } from './loading/loading.component';
     WorkflowTableComponent,
     DeploymentReviewDialogComponent,
     NavigationComponent,
+    RepoTableComponent,
     LoadingComponent
   ],
   imports: [
