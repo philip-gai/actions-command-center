@@ -10,7 +10,8 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/functions": "^4.0.0-alpha.7"
+    "@azure/functions": "^4.0.0-alpha.7",
+    "@octokit/oauth-app": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^18.x",

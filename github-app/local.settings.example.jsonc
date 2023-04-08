@@ -4,6 +4,8 @@
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=actionscommandcenterdbg;AccountKey=<AccountKey>;EndpointSuffix=core.windows.net",
     // Required. Otherwise you will get error message "No job functions found"
-    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing"
+    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
+    "GITHUB_CLIENT_ID": "Iv1.f3cd5e26efa9f14f",
+    "GITHUB_CLIENT_SECRET": "<GITHUB_CLIENT_SECRET>"
   }
 }
