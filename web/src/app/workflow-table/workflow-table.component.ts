@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { delay } from 'rxjs';
 import { DeploymentReviewDialogData } from '../deployment-review-dialog-data';
 import { DeploymentReviewDialogComponent } from '../deployment-review-dialog/deployment-review-dialog.component';
-import { RepoService } from '../repo.service';
 import { WorkflowRunResponse } from '../workflow-run-response';
 
 @Component({
@@ -19,11 +18,7 @@ export class WorkflowTableComponent {
   displayedColumns = ["id", "workflow", "triggered_by", "started_at", "repo", "actions"];
   totalCount = 0;
 
-  constructor(private _repoService: RepoService, public dialog: MatDialog) { }
-
-  removeRepo(repo: string) {
-    this._repoService.removeRepo(repo);
-  }
+  constructor(public dialog: MatDialog) { }
 
   openDialog(data: DeploymentReviewDialogData) {
     const dialogRef = this.dialog.open(DeploymentReviewDialogComponent, { data });

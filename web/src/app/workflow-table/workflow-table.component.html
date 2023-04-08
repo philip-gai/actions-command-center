@@ -16,10 +16,6 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Repository</th>
       <td mat-cell *matCellDef="let row">
         <a [href]="row.repository.html_url" target="_blank">{{row.repository.full_name}}</a>
-        <button mat-button matTooltip="Unfollow repository" color="warn" aria-label="Unfollow repository"
-          (click)="removeRepo(row.repository.full_name)">
-          <mat-icon>remove</mat-icon>
-        </button>
       </td>
     </ng-container>
 
