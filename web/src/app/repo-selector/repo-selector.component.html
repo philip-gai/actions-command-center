@@ -2,10 +2,24 @@
   <mat-expansion-panel hideToggle [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
+        Followed Repositories
+      </mat-panel-title>
+      <mat-panel-description>
+        Repositories you are currently following
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-repo-table [repos]="followedRepos" [totalCount]="totalFollowCount" [onRepoAction]="onRepoAction"
+      [actions]="['unfollow']"></app-repo-table>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-accordion>
+  <mat-expansion-panel hideToggle [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
         Select Repositories
       </mat-panel-title>
       <mat-panel-description>
-        Search and select repositories to monitor
+        Search and select repositories to follow
       </mat-panel-description>
     </mat-expansion-panel-header>
     <form (submit)="false">
@@ -14,7 +28,7 @@
         <input matInput type="text" [value]="initialSearch" (keyup)="onRepositorySearch($event)">
       </mat-form-field>
     </form>
-    <app-repo-table [data$]="data$" [totalCount]="totalCount" [onRepoSelected]="onRepoSelected"
+    <app-repo-table [repos]="searchedRepos" [totalCount]="totalSearchCount" [onRepoAction]="onRepoAction"
       [actions]="['follow']"></app-repo-table>
   </mat-expansion-panel>
 </mat-accordion>

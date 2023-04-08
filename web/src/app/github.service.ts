@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isEmpty } from 'lodash';
 import { Octokit } from 'octokit';
 import { from } from 'rxjs';
 
@@ -24,12 +25,25 @@ export class GithubService {
     return from(this.octokit.rest.repos.listForAuthenticatedUser(options))
   }
 
-  public searchRepos(options: { repo: string, page: number, per_page: number }) {
+  public searchRepos(options: { nameQuery?: string, userQuery?: string, repos?: string[], page: number, per_page: number }) {
     const params = {
-      q: `${options.repo} in:name`,
+      q: '',
       page: options.page,
       per_page: options.per_page
     }
+    const queries: string[] = []
+    if (!isEmpty(options.nameQuery)) {
+      queries.push(`${options.nameQuery} in:name`);
+    }
+    if (!isEmpty(options.userQuery)) {
+      queries.push(`user:${options.userQuery}`);
+    }
+    if (options.repos && !isEmpty(options.repos)) {
+      const query = options.repos.map(repo => `repo:${repo}`).join(' ');
+      queries.push(query);
+    }
+    params.q = queries.join(' ');
+
     if (!this.octokit) {
       throw new Error("Octokit is not initialized");
     }

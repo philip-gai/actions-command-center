@@ -13,7 +13,7 @@
   <ng-container *ngIf="repos$ | async">
     <ng-container *ngIf="repoWorkflowsRuns$ | async as workflowRuns; else loading">
       <mat-card-content>
-        <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRuns" [workflowRuns]="workflowRuns"
+        <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRows" [workflowRuns]="workflowRuns"
           (runReviewed)="refreshWorkflows()"></app-workflow-table>
       </mat-card-content>
       <mat-card-footer *ngIf="reposWithNoWaitingWorkflows.length > 0">
@@ -30,6 +30,6 @@
   <mat-spinner></mat-spinner>
 </ng-template>
 
-<ng-template #noRuns>
+<ng-template #noRows>
   <p>No pending workflow approvals found.</p>
 </ng-template>

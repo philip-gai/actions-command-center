@@ -1,43 +1,62 @@
-<table *ngIf="data$ | async as data; else loading" mat-table class="full-width-table mat-elevation-z8" matSort
-  aria-label="Repositories" [dataSource]="data">
+<ng-container *ngIf="useReposArray && repos; else asyncTable">
+  <ng-container *ngTemplateOutlet="table; context: { repos }"></ng-container>
+</ng-container>
 
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-    <td mat-cell *matCellDef="let row"><a [href]="row.html_url" target="_blank">{{row.full_name}}</a></td>
+<ng-template #asyncTable>
+  <ng-container *ngIf="repos$ | async as repos; else loading">
+    <ng-container *ngTemplateOutlet="table; context: { repos }"></ng-container>
   </ng-container>
+</ng-template>
 
-  <ng-container matColumnDef="private">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Private</th>
-    <td mat-cell *matCellDef="let row"><mat-icon *ngIf="row.private">check</mat-icon></td>
-  </ng-container>
+<ng-template #table let-repos="repos">
+  <table *ngIf="repos.length > 0; else noRows" mat-table class="full-width-table mat-elevation-z8" matSort
+    aria-label="Repositories" [dataSource]="repos">
 
-  <ng-container matColumnDef="stars">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Stars</th>
-    <td mat-cell *matCellDef="let row">{{row.stargazers_count}}</td>
-  </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let row"><a [href]="row.html_url" target="_blank">{{row.full_name}}</a></td>
+    </ng-container>
 
-  <ng-container matColumnDef="topics">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Topics</th>
-    <td mat-cell *matCellDef="let row">{{row.topics?.join(', ')}}</td>
-  </ng-container>
+    <ng-container matColumnDef="private">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Private</th>
+      <td mat-cell *matCellDef="let row"><mat-icon *ngIf="row.private">check</mat-icon></td>
+    </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef> Actions </th>
-    <td mat-cell *matCellDef="let row">
-      <button *ngIf="shouldShowAction('follow')" mat-button color="primary" matTooltip="Follow repository" aria-label="Follow repository button"
-        (click)="onRepoSelected(row.full_name)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+    <ng-container matColumnDef="stars">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Stars</th>
+      <td mat-cell *matCellDef="let row">{{row.stargazers_count}}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="topics">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Topics</th>
+      <td mat-cell *matCellDef="let row">{{row.topics?.join(', ')}}</td>
+    </ng-container>
 
-<mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="25" aria-label="Select page">
-</mat-paginator>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row">
+        <button *ngIf="shouldShowAction('follow')" mat-button color="primary" matTooltip="Follow repository"
+          aria-label="Follow repository button" (click)="onRepoAction(row, 'follow')">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button *ngIf="shouldShowAction('unfollow')" mat-button color="warn" matTooltip="Unfollow repository"
+          aria-label="Unfollow repository button" (click)="onRepoAction(row, 'unfollow')">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="25" aria-label="Select page">
+  </mat-paginator>
+</ng-template>
 
 <ng-template #loading>
   <app-loading></app-loading>
+</ng-template>
+
+<ng-template #noRows>
+  <p>Followed repositories will show up here.</p>
 </ng-template>

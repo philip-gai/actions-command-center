@@ -8,11 +8,22 @@ import { Repository } from '../repository';
   styleUrls: ['./repo-table.component.scss']
 })
 export class RepoTableComponent {
-  @Input() data$!: Observable<Repository[]>;
+  @Input() repos$?: Observable<Repository[]>;
+  private _repos?: Repository[] | undefined;
+  @Input()
+  public get repos(): Repository[] | undefined {
+    return this._repos;
+  }
+  public set repos(value: Repository[] | undefined) {
+    this.useReposArray = true;
+    this._repos = value;
+  }
   @Input() totalCount!: number;
-  @Input() onRepoSelected!: (repo: string) => void
+  @Input() onRepoAction!: (repo: Repository, action: RepoAction) => void
   @Input() displayedColumns: string[] = ['name', 'private', 'stars', 'topics', 'actions'];
   @Input() actions: RepoAction[] = [];
+
+  useReposArray = false;
 
   public shouldShowAction(action: RepoAction): boolean {
     return this.actions.includes(action);
