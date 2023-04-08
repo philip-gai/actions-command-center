@@ -14,7 +14,9 @@
 				"GitHub.vscode-pull-request-github",
 				"redhat.vscode-yaml",
 				"Angular.ng-template",
-				"foxundermoon.shell-format"
+				"foxundermoon.shell-format",
+				"ms-azuretools.vscode-azurefunctions",
+				"ms-vscode.vscode-node-azure-pack"
 			]
 		}
 	},
@@ -31,6 +33,9 @@
 		"4200": {
 			"label": "web"
 		},
+		"7071": {
+			"label": "github-app"
+		},
 		"9876": {
 			"label": "web test"
 		}
@@ -44,7 +49,8 @@
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		4200
+		4200,
+		7071
 	]
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",

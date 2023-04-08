@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=actionscommandcenterdbg;AccountKey=<AccountKey>;EndpointSuffix=core.windows.net",
+    // Required. Otherwise you will get error message "No job functions found"
+    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing"
+  }
+}
