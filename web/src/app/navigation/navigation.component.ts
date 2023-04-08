@@ -69,6 +69,10 @@ export class NavigationComponent {
     return this._userService.Username;
   }
 
+  public isRouterLinkActive(link?: string | null) {
+    return this._router.url === link;
+  }
+
   // Repo menu item
 
   public get repoMenuItemLink() {
