@@ -23,7 +23,6 @@ export class RepoSelectorComponent implements AfterViewInit {
   totalCount = 0;
   initialSearch: string;
   lastQuery?: string;
-  @Output() repoSelected = new EventEmitter<null>();
 
   constructor(private _githubService: GithubService, private _userService: UserService, private _repoService: RepoService) {
     this.initialSearch = this._userService.Username || "defunkt";
@@ -38,7 +37,6 @@ export class RepoSelectorComponent implements AfterViewInit {
 
   onRepoSelected(repo: string) {
     this._repoService.addRepo(repo);
-    this.repoSelected.emit(null);
 
     // Refresh after changing the data
     this.searchRepos(this.lastQuery || this.initialSearch).pipe(
