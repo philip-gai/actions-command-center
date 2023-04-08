@@ -110,6 +110,10 @@ export class RepoSelectorComponent implements AfterViewInit {
   }
 
   private getFollowedRepos(repos: string[]) {
+    if (isEmpty(repos)) {
+      this.followedRepos = [];
+      return of([]);
+    }
     return this._githubService.searchRepos({ repos, page: 1, per_page: 25 }).pipe(
       map((response) => {
         this.totalFollowCount = response.data.total_count;
