@@ -10,11 +10,11 @@
       </button>
     </mat-card-header>
   </div>
-  <ng-container *ngIf="repos$ | async">
-    <ng-container *ngIf="repoWorkflowsRuns$ | async as workflowRuns; else loading">
+  <ng-container *ngIf="repos$ | async; else loading">
+    <ng-container *ngIf="workflowRuns; else loading">
       <mat-card-content>
         <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRows" [workflowRuns]="workflowRuns"
-          (runReviewed)="refreshWorkflows()"></app-workflow-table>
+          (runReviewed)="onRunReviewed($event)"></app-workflow-table>
       </mat-card-content>
     </ng-container>
   </ng-container>
