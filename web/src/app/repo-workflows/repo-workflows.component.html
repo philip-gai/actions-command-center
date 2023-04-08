@@ -16,11 +16,6 @@
         <app-workflow-table *ngIf="workflowRuns.total_count > 0; else noRows" [workflowRuns]="workflowRuns"
           (runReviewed)="refreshWorkflows()"></app-workflow-table>
       </mat-card-content>
-      <mat-card-footer *ngIf="reposWithNoWaitingWorkflows.length > 0">
-        <mat-card-content>
-          <p><b>Repositories with no pending approvals:</b> {{ reposWithNoWaitingWorkflows.join(", ") }}</p>
-        </mat-card-content>
-      </mat-card-footer>
     </ng-container>
   </ng-container>
 </mat-card>
@@ -31,5 +26,5 @@
 </ng-template>
 
 <ng-template #noRows>
-  <p>No pending workflow approvals found.</p>
+  <p>You have pending workflow approvals 🎉</p>
 </ng-template>

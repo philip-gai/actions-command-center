@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, tap } from 'rxjs';
 import { RepoService } from '../repo.service';
 import { WorkflowRunResponse } from '../workflow-run-response';
@@ -12,7 +11,6 @@ import { WorkflowService } from '../workflow.service';
 })
 export class RepoWorkflowsComponent {
   repoWorkflowsRuns$: Observable<WorkflowRunResponse> = of();
-  reposWithNoWaitingWorkflows: string[] = [];
   repos$: Observable<string[]>;
 
   constructor(private _workflowService: WorkflowService, private _repoService: RepoService) {
@@ -28,16 +26,7 @@ export class RepoWorkflowsComponent {
   }
 
   loadWorkflowRuns(repos: string[]) {
-    this.repoWorkflowsRuns$ = this._workflowService.listWaitingWorkflowRunsForRepos(repos)
-      .pipe(
-        tap((workflowRuns) => {
-          this.reposWithNoWaitingWorkflows = repos.filter((repo) => {
-            return !workflowRuns.workflow_runs.find((workflowRun) => {
-              return workflowRun.repository.full_name === repo;
-            });
-          });
-        })
-      );
+    this.repoWorkflowsRuns$ = this._workflowService.listWaitingWorkflowRunsForRepos(repos);
     return this.repoWorkflowsRuns$;
   }
 }
