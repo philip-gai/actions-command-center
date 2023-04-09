@@ -36,9 +36,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RepoTableComponent } from './repo-table/repo-table.component';
 import { LoadingComponent } from './loading/loading.component';
-
-
-
+import { GitHubCallbackComponent } from './github-callback/github-callback.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -50,12 +49,14 @@ import { LoadingComponent } from './loading/loading.component';
     DeploymentReviewDialogComponent,
     NavigationComponent,
     RepoTableComponent,
-    LoadingComponent
+    LoadingComponent,
+    GitHubCallbackComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     // Material Modules
     MatButtonModule,
     MatCardModule,
