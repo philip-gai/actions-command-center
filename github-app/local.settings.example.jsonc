@@ -7,5 +7,9 @@
     "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
     "GITHUB_CLIENT_ID": "Iv1.f3cd5e26efa9f14f",
     "GITHUB_CLIENT_SECRET": "<GITHUB_CLIENT_SECRET>"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*"
   }
 }
