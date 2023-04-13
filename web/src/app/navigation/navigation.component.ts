@@ -22,6 +22,13 @@ export class NavigationComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private _userService: UserService, private _router: Router, private _repoService: RepoService) {
+    this.redirectIfNeeded(this.isUserLoggedIn, this._router.url);
+  }
+
+  private redirectIfNeeded(isUserLoggedIn: boolean, routeUrl: string): void {
+    if (routeUrl.startsWith("/github/callback")) {
+      return
+    }
     // If the user is not logged in, redirect to login
     if (!this.isUserLoggedIn) {
       this._router.navigateByUrl('/user/login');
@@ -29,7 +36,6 @@ export class NavigationComponent {
     }
 
     // User is logged in
-    const routeUrl = this._router.url;
     if (["/", "/user/login"].includes(routeUrl)) {
       // If the user is logged in, but has no repos, redirect to repo select
       if (isEmpty(this.repos)) {
@@ -42,7 +48,7 @@ export class NavigationComponent {
     }
 
     // If the user has not selected a repo, redirect to repo select
-    if(routeUrl === '/workflow/approvals' && isEmpty(this.repos)) {
+    if (routeUrl === '/workflow/approvals' && isEmpty(this.repos)) {
       this._router.navigateByUrl('/repo/select');
       return
     }

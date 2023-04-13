@@ -13,13 +13,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 // Test by going to https://github.com/login/oauth/authorize?client_id=Iv1.f3cd5e26efa9f14f
 export class GitHubCallbackComponent implements OnInit {
+  code?: string;
+
   constructor(private _activatedRoute: ActivatedRoute, private _githubService: GithubService, private _userService: UserService, private _router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this._activatedRoute.queryParams.subscribe(params => {
-      const code = params['code'];
-      if (!isEmpty(code)) {
-        this._githubService.getUserAccessToken(params['code']).subscribe(auth => {
+      this.code = params['code'];
+      if (this.code && !isEmpty(this.code)) {
+        this._githubService.getUserAccessToken(this.code).subscribe(auth => {
           this._userService.Token = auth.token;
           setTimeout(() => {
             if (this._userService.isUserLoggedIn()) {
