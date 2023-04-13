@@ -8,8 +8,10 @@ import { Repository } from '../repository';
   styleUrls: ['./repo-table.component.scss']
 })
 export class RepoTableComponent {
+  private _repos?: Repository[] = undefined;
+  useReposArray = false;
+
   @Input() repos$?: Observable<Repository[]>;
-  private _repos?: Repository[] | undefined;
   @Input()
   public get repos(): Repository[] | undefined {
     return this._repos;
@@ -22,8 +24,6 @@ export class RepoTableComponent {
   @Input() onRepoAction!: (repo: Repository, action: RepoAction) => void
   @Input() displayedColumns: string[] = ['name', 'private', 'stars', 'topics', 'actions'];
   @Input() actions: RepoAction[] = [];
-
-  useReposArray = false;
 
   public shouldShowAction(action: RepoAction): boolean {
     return this.actions.includes(action);
