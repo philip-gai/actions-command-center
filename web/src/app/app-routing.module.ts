@@ -4,6 +4,7 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { RepoSelectorComponent } from './repo-selector/repo-selector.component';
 import { RepoWorkflowsComponent } from './repo-workflows/repo-workflows.component';
+import { GitHubCallbackComponent } from './github-callback/github-callback.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'workflow/approvals',
         component: RepoWorkflowsComponent
+      },
+      {
+        path: 'github/callback',
+        component: GitHubCallbackComponent
       }
     ],
   }

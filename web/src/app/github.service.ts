@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { isEmpty } from 'lodash';
 import { Octokit } from 'octokit';
 import { from } from 'rxjs';
+import { GithubAppClientService } from './github-app-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import { from } from 'rxjs';
 export class GithubService {
 
   private octokit?: Octokit;
+
+  constructor(private _githubAppClientService: GithubAppClientService) { }
 
   public async updateOctokit(token: string): Promise<void> {
     this.octokit = new Octokit({ auth: token });
@@ -82,5 +85,9 @@ export class GithubService {
     }
     const finalOptions = { owner: owner, repo: repo, run_id: options.run_id, environment_ids: options.environment_ids, state: options.state, comment: options.comment };
     return from(this.octokit.rest.actions.reviewPendingDeploymentsForRun(finalOptions));
+  }
+
+  public getUserAccessToken(code: string) {
+    return this._githubAppClientService.getUserAccessToken(code);
   }
 }
