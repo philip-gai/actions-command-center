@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthFormComponent } from './auth-form/auth-form.component';
+import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { RepoSelectorComponent } from './repo-selector/repo-selector.component';
 import { RepoWorkflowsComponent } from './repo-workflows/repo-workflows.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'user/login',
-        component: AuthFormComponent
+        component: LoginComponent
       },
       {
         path: 'workflow/approvals',

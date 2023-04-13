@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { WorkflowTableComponent } from './workflow-table/workflow-table.component';
 import { RepoWorkflowsComponent } from './repo-workflows/repo-workflows.component';
 import { RepoSelectorComponent } from './repo-selector/repo-selector.component';
-import { AuthFormComponent } from './auth-form/auth-form.component';
+import { LoginComponent } from './login/login.component';
 import { DeploymentReviewDialogComponent } from './deployment-review-dialog/deployment-review-dialog.component';
 
 // Material Imports
@@ -42,7 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    AuthFormComponent,
+    LoginComponent,
     RepoSelectorComponent,
     RepoWorkflowsComponent,
     WorkflowTableComponent,
