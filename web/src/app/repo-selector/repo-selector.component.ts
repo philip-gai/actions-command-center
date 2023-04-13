@@ -44,7 +44,7 @@ export class RepoSelectorComponent implements AfterViewInit {
     if (action === 'follow') {
       this.followedRepos = this.followedRepos?.concat(repo);
       this.totalFollowCount++;
-      if (this.searchedRepos) {
+      if (this.searchedRepos && !isEmpty(this.searchedRepos)) {
         this.searchedRepos.splice(this.searchedRepos.indexOf(repo), 1);
         this.searchedRepos = this.searchedRepos.slice();
         this.totalSearchCount--;
@@ -53,7 +53,7 @@ export class RepoSelectorComponent implements AfterViewInit {
     } else if (action === 'unfollow') {
       this.searchedRepos = this.searchedRepos?.concat(repo);
       this.totalSearchCount++;
-      if (this.followedRepos) {
+      if (this.followedRepos && !isEmpty(this.followedRepos)) {
         this.followedRepos.splice(this.followedRepos.indexOf(repo), 1);
         this.followedRepos = this.followedRepos.slice();
         this.totalFollowCount--;
