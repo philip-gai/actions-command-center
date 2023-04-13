@@ -1,2 +1,12 @@
-<p *ngIf="code">Logging you in...</p>
-<p *ngIf="!code">No code provided</p>
+<mat-card>
+  <mat-card-content>
+    <ng-container *ngIf="code; else noCode">
+      Logging you in...
+      <app-loading></app-loading>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #noCode>
+  <p>No code provided 😢</p>
+</ng-template>

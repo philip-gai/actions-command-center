@@ -12,9 +12,8 @@ import { catchError, tap } from 'rxjs';
   styleUrls: ['./github-callback.component.scss']
 })
 
-// Test by going to https://github.com/login/oauth/authorize?client_id=Iv1.f3cd5e26efa9f14f
 export class GitHubCallbackComponent implements OnInit {
-  code?: string;
+  code = '';
 
   constructor(private _activatedRoute: ActivatedRoute, private _githubService: GithubService, private _userService: UserService, private _router: Router, private _snackBar: MatSnackBar) { }
 
