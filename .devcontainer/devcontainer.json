@@ -27,14 +27,15 @@
 		},
 		"ghcr.io/devcontainers-contrib/features/angular-cli:2": {
 			"version": "15"
-		}
+		},
+		"ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {}
 	},
 	"portsAttributes": {
 		"4200": {
 			"label": "web"
 		},
 		"7071": {
-			"label": "github-app"
+			"label": "api"
 		},
 		"9876": {
 			"label": "web test"
@@ -51,9 +52,9 @@
 	"forwardPorts": [
 		4200,
 		7071
-	]
+	],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "./.devcontainer/postCreateCommand.sh"
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
