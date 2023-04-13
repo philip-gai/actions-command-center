@@ -7,9 +7,18 @@ import { GitHubAppUserAuthenticationWithExpiration } from "@octokit/auth-oauth-a
 export async function getGitHubAccessToken(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
     const code = request.query.get('code');
+    if (!code) {
+        context.error(`Missing code`);
+        return { status: 400, body: "Missing code" };
+    }
 
     const clientId = env["GITHUB_CLIENT_ID"];
     const clientSecret = env["GITHUB_CLIENT_SECRET"];
+
+    if (!clientId || !clientSecret) {
+        context.error(`Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET`);
+        return { status: 500, body: "Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET" };
+    }
 
     context.log(`clientId: ${clientId}`);
 
@@ -30,7 +39,7 @@ export async function getGitHubAccessToken(request: HttpRequest, context: Invoca
     }
 
     // NEVER return this to the client
-    delete authWithExpiration.clientSecret;
+    authWithExpiration.clientSecret = 'REDACTED';
 
     context.log(`Token (Last 9): ${authWithExpiration.token.slice(-9)}`);
 
