@@ -2,6 +2,11 @@
 
 set -e
 
+# Install additional packages
+
+npm i -g install azure-functions-core-tools@4 --unsafe-perm true
+func --version || true
+
 cd web
-ng completion
-cd - >/dev/null
+ng completion || true
+cd - > /dev/null
