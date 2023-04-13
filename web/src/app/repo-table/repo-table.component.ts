@@ -24,6 +24,7 @@ export class RepoTableComponent {
   @Input() onRepoAction!: (repo: Repository, action: RepoAction) => void
   @Input() displayedColumns: string[] = ['name', 'private', 'stars', 'topics', 'actions'];
   @Input() actions: RepoAction[] = [];
+  @Input() messageIfNoRows = 'Nothing here to see.';
 
   public shouldShowAction(action: RepoAction): boolean {
     return this.actions.includes(action);

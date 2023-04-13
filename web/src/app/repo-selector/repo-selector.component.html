@@ -9,7 +9,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <app-repo-table [repos]="followedRepos" [totalCount]="totalFollowCount" [onRepoAction]="onRepoAction"
-      [actions]="['unfollow']"></app-repo-table>
+      [actions]="['unfollow']" [messageIfNoRows]="messageIfNoFollowedRepos"></app-repo-table>
   </mat-expansion-panel>
 </mat-accordion>
 <mat-accordion>
@@ -29,6 +29,6 @@
       </mat-form-field>
     </form>
     <app-repo-table [repos]="searchedRepos" [totalCount]="totalSearchCount" [onRepoAction]="onRepoAction"
-      [actions]="['follow']"></app-repo-table>
+      [actions]="['follow']" [messageIfNoRows]="messageIfNoSearchResults"></app-repo-table>
   </mat-expansion-panel>
 </mat-accordion>

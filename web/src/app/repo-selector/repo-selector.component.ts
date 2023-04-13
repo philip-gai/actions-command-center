@@ -27,6 +27,8 @@ export class RepoSelectorComponent implements AfterViewInit {
   initialSearch: string;
   followedRepos?: Repository[];
   searchedRepos?: Repository[];
+  messageIfNoFollowedRepos = "You're not following any repositories yet."
+  messageIfNoSearchResults = "Hmm, we couldn't find any repositories matching your search."
 
   constructor(private _githubService: GithubService, private _userService: UserService, private _repoService: RepoService) {
     this.initialSearch = this._userService.Username || '';
