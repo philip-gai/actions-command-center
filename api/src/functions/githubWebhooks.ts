@@ -7,8 +7,9 @@ export async function githubWebhooks(request: HttpRequest, context: InvocationCo
 
     const event = request.headers["X-GitHub-Event"];
     const payload = await request.json() as any;
+    context.log(`Received event ${event}`);
+    context.log(payload);
 
-    const installationId = request.headers["X-GitHub-Hook-Installation-Target-ID"];
     if (event === "workflow_dispatch") {
         context.log(`Received workflow_dispatch event`);
 
