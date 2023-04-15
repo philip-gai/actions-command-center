@@ -27,6 +27,9 @@
 		},
 		"ghcr.io/devcontainers-contrib/features/angular-cli:2": {
 			"version": "15"
+		},
+		"ghcr.io/jlaundry/devcontainer-features/azure-functions-core-tools:1": {
+			"version": "latest"
 		}
 	},
 	"portsAttributes": {
