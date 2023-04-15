@@ -26,8 +26,8 @@ export async function githubWebhooks(request: HttpRequest, context: InvocationCo
 
         const installKit = await app.getInstallationOctokit(payload.installation.id)
 
-        // Wait a few seconds
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        // Wait 30 seconds
+        await new Promise(resolve => setTimeout(resolve, 30000));
 
         const workflowRunsResponse = await installKit.rest.actions.listWorkflowRunsForRepo({
             owner: payload.repository.owner.login,
