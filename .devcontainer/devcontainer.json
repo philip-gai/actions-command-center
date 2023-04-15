@@ -16,7 +16,8 @@
 				"Angular.ng-template",
 				"foxundermoon.shell-format",
 				"ms-azuretools.vscode-azurefunctions",
-				"ms-vscode.vscode-node-azure-pack"
+				"ms-vscode.vscode-node-azure-pack",
+				"fabiospampinato.vscode-diff"
 			]
 		}
 	},

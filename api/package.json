@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@azure/functions": "^4.0.0-alpha.7",
-    "@octokit/oauth-app": "^4.2.0"
+    "@octokit/oauth-app": "^4.2.0",
+    "octokit": "^2.0.14"
   },
   "devDependencies": {
     "@types/node": "^18.x",
