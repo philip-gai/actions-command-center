@@ -5,7 +5,7 @@ import { env } from "process";
 export async function githubWebhooks(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log(`Http function processed request for url "${request.url}"`);
 
-    const event = request.headers["X-GitHub-Event"];
+    const event = request.headers.get("X-GitHub-Event");
     const payload = await request.json() as any;
     context.log(`Received event ${event}`);
     context.log(payload);
