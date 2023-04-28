@@ -1,7 +1,10 @@
 name: Deploy web app
 
 on:
-  workflow_call: {}
+  workflow_call:
+    secrets:
+      PERSONAL_ACCESS_TOKEN:
+        required: true
   workflow_dispatch: {}
 
 permissions:
@@ -44,12 +47,6 @@ jobs:
       - name: Build
         run: npm run deploy -- --dry-run
         working-directory: ${{ env.WEB_APP_DIRECTORY }}
-      - name: Check PAT exists
-        run: |
-          if [ -z "${{ secrets.PERSONAL_ACCESS_TOKEN }}" ]; then
-            echo "PERSONAL_ACCESS_TOKEN is not set"
-            exit 1
-          fi
       - name: Deploy
         env:
           PERSONAL_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
