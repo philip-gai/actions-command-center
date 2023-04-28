@@ -11,7 +11,7 @@ env:
 
 jobs:
   ci:
-    name: CI
+    name: CI web app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,11 +27,9 @@ jobs:
         uses: actions/setup-node@v2.5.2
         with:
           node-version: ${{ env.node-version }}
-      - name: Install
-        run: npm ci
+      - run: npm ci
         working-directory: ./web
-      - name: Lint
-        run: npm run lint
+      - run: npm run lint
         working-directory: ./web
       - name: Build
         run: npm run deploy -- --dry-run
