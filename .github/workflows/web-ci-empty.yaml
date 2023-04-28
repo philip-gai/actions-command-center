@@ -1,0 +1,13 @@
+name: CI web app (no-op)
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths-ignore: ["web/**"]
+
+jobs:
+  ci:
+    name: CI web app
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo "No-op"'

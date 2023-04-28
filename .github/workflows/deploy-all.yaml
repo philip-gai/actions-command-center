@@ -1,0 +1,12 @@
+name: Deploy all
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  deploy-api:
+    name: Deploy api
+    uses: ./.github/workflows/api-deploy.yaml
+  deploy-web:
+    name: Deploy web
+    uses: ./.github/workflows/web-deploy.yaml
