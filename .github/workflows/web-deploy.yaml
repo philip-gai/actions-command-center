@@ -46,6 +46,6 @@ jobs:
         working-directory: ${{ env.WEB_APP_DIRECTORY }}
       - name: Deploy
         env:
-          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          PERSONAL_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: npm run deploy -- --no-build
         working-directory: ${{ env.WEB_APP_DIRECTORY }}
