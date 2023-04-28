@@ -40,12 +40,9 @@ export async function getGitHubAccessToken(request: HttpRequest, context: Invoca
 
     // NEVER return this to the client
     authWithExpiration.clientSecret = 'REDACTED';
-
-    const jsonBody = authWithExpiration as any;
-    jsonBody.message = 'Successfully authenticated with GitHub';
-
     context.log(`Token (Last 9): ${authWithExpiration.token.slice(-9)}`);
 
+    const jsonBody = authWithExpiration as any;
     const response: HttpResponseInit = { jsonBody };
     return response;
 };

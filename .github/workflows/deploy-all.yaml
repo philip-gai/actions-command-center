@@ -3,6 +3,10 @@ name: Deploy all
 on:
   workflow_dispatch: {}
 
+permissions:
+  id-token: write # OIDC
+  contents: write # Needed for committing to github-pages branch
+
 jobs:
   deploy-api:
     name: Deploy api
