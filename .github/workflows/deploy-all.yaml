@@ -2,17 +2,21 @@ name: Deploy all
 
 on:
   workflow_dispatch: {}
+  push:
+    branches: [main]
 
 permissions:
   id-token: write # OIDC
   contents: write # Needed for committing to github-pages branch
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   deploy-api:
-    name: Deploy api
     uses: ./.github/workflows/api-deploy.yaml
   deploy-web:
-    name: Deploy web
     uses: ./.github/workflows/web-deploy.yaml
     secrets:
       PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
