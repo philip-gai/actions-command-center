@@ -30,7 +30,8 @@
 		},
 		"ghcr.io/jlaundry/devcontainer-features/azure-functions-core-tools:1": {
 			"version": "latest"
-		}
+		},
+		"ghcr.io/rchaganti/vsc-devcontainer-features/azurebicep:1": {}
 	},
 	"portsAttributes": {
 		"4200": {
