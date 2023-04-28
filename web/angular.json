@@ -113,7 +113,8 @@
             "name": "Philip Gai",
             "email": "philipmgai@gmail.com",
             "branch": "gh-pages",
-            "noSilent": true
+            "noSilent": true,
+            "repo": "https://github.com/philip-gai/actions-command-center.git"
           }
         },
         "lint": {
