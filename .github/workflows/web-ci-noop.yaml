@@ -1,4 +1,4 @@
-name: CI web app (no-op)
+name: No-op
 
 on:
   pull_request:
