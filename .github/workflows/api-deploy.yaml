@@ -18,7 +18,7 @@ jobs:
     concurrency: api-deploy-prod
     runs-on: ubuntu-latest
     environment:
-      name: api-deploy-prod
+      name: api
     steps:
       - name: Checkout
         uses: actions/checkout@v3.5.2
