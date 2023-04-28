@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: web
   cancel-in-progress: false
 
 env:

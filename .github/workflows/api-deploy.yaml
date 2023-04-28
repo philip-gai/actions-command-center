@@ -9,7 +9,7 @@ permissions:
   contents: read  # actions/checkout
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: api
   cancel-in-progress: false
 
 env:

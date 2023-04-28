@@ -10,7 +10,7 @@ permissions:
   contents: write # Needed for committing to github-pages branch
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: all
   cancel-in-progress: false
 
 jobs:
